@@ -11,16 +11,27 @@ const Form = ({form, setForm, fetchData}) => {
     const {control, handleSubmit, reset} = useForm()
     const [loader, setLoader] = useState(false)
     const [file, setFile] = useState(null)
+    const [galleryImages, setGalleryImages] = useState([])
+    const [galleryFiles, setGalleryFiles] = useState([])
 
     const submit = async data => {
         const formData = new FormData()
         delete data.mainImageUrl
+        delete data.mainImage
+        delete data.galleryImages
 
         Object.keys(data).forEach(item => {
             formData.append(item, data[item])
         })
 
         formData.append('mainImage', file)
+        if (galleryFiles.length) {
+            galleryFiles.forEach(item => {
+                formData.append('galleryImages', item?.file)
+            })
+        } else {
+            formData.append('galleryImages', null)
+        }
 
         setLoader(true)
         try {
@@ -31,6 +42,11 @@ const Form = ({form, setForm, fetchData}) => {
             toast.error('Xəta baş verdi')
         }
         setLoader(true)
+    }
+
+    const getProject = async() => {
+        const res = await Constants.getProject(form?.id)
+        setGalleryImages(res?.imageUrls)
     }
 
     const types = [
@@ -50,6 +66,7 @@ const Form = ({form, setForm, fetchData}) => {
 
     useEffect(() => {
         if (form?.id) {
+            getProject()
             reset(form)
         }
     }, [form])
@@ -132,6 +149,57 @@ const Form = ({form, setForm, fetchData}) => {
                         alt="Image"/>
                 </div>
             )}
+            <div className="col-12"><label>Qalerya</label></div>
+            <div className="col-12">
+                <label
+                    className="p-button p-button-secondary"
+                    htmlFor="files">Şəkil seç</label>
+                <input className="v-hidden" multiple type="file" accept=".png,.jpg,.jpeg,.jiff" name="files"
+                    id="files"
+                    onChange={e => {
+                        Array.from(e.target.files).forEach(item => {
+                            setGalleryFiles(prev => ([
+                                ...prev,
+                                {
+                                    id: Math.random(),
+                                    file: item
+                                }
+                            ]))
+                        })
+                    }
+                    }/>
+            </div>
+            {galleryImages?.map((item, index) => (
+                <div className="col-12 md:col-3" key={index}>
+                    <div className="flex flex-column gap-1">
+                        <img width="100%" height="150"
+                            src={`${process.env.REACT_APP_FILE_URL}${item?.imageUrl}`}
+                            alt="Image"/>
+                        <Button className="p-button-danger" onClick={async(e) => {
+                            e.preventDefault()
+                            await Constants.deleteProjectImages(item?.id)
+                            let newImages = [...galleryImages]
+                            newImages = newImages.filter(item2 => item?.id !== item2?.id)
+                            setGalleryImages(newImages)
+                        }}>Sil</Button>
+                    </div>
+                </div>
+            ))}
+            {galleryFiles?.map((item, index) => (
+                <div className="col-12 md:col-3" key={index}>
+                    <div className="flex flex-column gap-1">
+                        <img width="100%" height="150"
+                            src={URL.createObjectURL(item?.file)}
+                            alt="Image"/>
+                        <Button className="p-button-danger text-center" onClick={(e) => {
+                            e.preventDefault()
+                            let newImages = [...galleryFiles]
+                            newImages = newImages.filter(item2 => item?.id !== item2?.id)
+                            setGalleryFiles(newImages)
+                        }}>Sil</Button>
+                    </div>
+                </div>
+            ))}
             <div className="col-12">
                 <div className="flex justify-content-end">
                     <Button className="p-button-danger d-flex align-items-center gap-1" disabled={loader}>

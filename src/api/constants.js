@@ -15,9 +15,11 @@ class Constants {
     updateService = data => axios.put('AdminOurServices', data)
     deleteService = id => axios.delete(`AdminOurServices/${id}`)
     getProjets = () => axios.get('AdminSelectedProjects')
+    getProject = id => axios.get(`AdminSelectedProjects/${id}`)
     addProject = data => axios.post('AdminSelectedProjects', data)
     updateProject = data => axios.put('AdminSelectedProjects', data)
     deleteProject = id => axios.delete(`AdminSelectedProjects/${id}`)
+    deleteProjectImages = id => axios.delete(`AdminSelectedProjectImages/${id}`)
 }
 
 export default new Constants()

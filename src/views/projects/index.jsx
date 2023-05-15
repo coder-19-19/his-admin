@@ -81,7 +81,7 @@ const Blogs = () => {
                         style={{width: '50vw'}} breakpoints={{'960px': '75vw', '641px': '100vw'}}>
                         <Form fetchData={fetchData} form={form} setForm={setForm}/>
                     </Dialog>
-                    <DataTable paginator rows={10} rowsPerPageOptions={[10, 20, 30]} emptyMessage="Məlumat yoxdur"
+                    <DataTable emptyMessage="Məlumat yoxdur"
                         className="mt-5" value={data} responsiveLayout="scroll">
                         <Column field="nameAZ" header={names.nameAZ} sortable/>
                         <Column field="nameEN" header={names.nameEN} sortable/>
