@@ -3,6 +3,7 @@ import {Controller, useForm} from 'react-hook-form'
 import Auth from '../../api/auth'
 import {InputText} from 'primereact/inputtext'
 import {Button} from 'primereact/button'
+import classNames from 'classnames'
 
 const AddForm = ({fetchData, setForm}) => {
     const [loader, setLoader] = useState(false)
@@ -26,7 +27,7 @@ const AddForm = ({fetchData, setForm}) => {
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="username">Başlıq (az)</label>
+                        htmlFor="username">İstifadəçi adı (login)</label>
                     <InputText className="w-full" name="username" id="username" value={value}
                         onChange={onChange}/>
                 </div>
@@ -34,27 +35,19 @@ const AddForm = ({fetchData, setForm}) => {
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="username">Başlıq (az)</label>
-                    <InputText className="w-full" name="username" id="username" value={value}
+                        htmlFor="firstName">Ad</label>
+                    <InputText className="w-full" name="firstName" id="firstName" value={value}
                         onChange={onChange}/>
                 </div>
-            )} name="firstname"/>
+            )} name="firstName"/>
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="firstname">Başlıq (az)</label>
-                    <InputText className="w-full" name="firstname" id="firstname" value={value}
+                        htmlFor="lastName">Soyad</label>
+                    <InputText className="w-full" name="lastName" id="lastName" value={value}
                         onChange={onChange}/>
                 </div>
-            )} name="firstname"/>
-            <Controller control={control} render={({field: {value, onChange}}) => (
-                <div className="col-12">
-                    <label
-                        htmlFor="lastname">Başlıq (az)</label>
-                    <InputText className="w-full" name="lastname" id="lastname" value={value}
-                        onChange={onChange}/>
-                </div>
-            )} name="lastname"/>
+            )} name="lastName"/>
             <Controller rules={{
                 required: true
             }} control={control} render={({field: {value, onChange}}) => (

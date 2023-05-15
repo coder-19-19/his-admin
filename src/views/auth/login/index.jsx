@@ -20,8 +20,9 @@ const Login = () => {
         setLoader(true)
         try {
             const res = await Auth.login(data)
+            console.log(res)
+            localStorage.setItem('permissions', JSON.stringify(res?.permissions))
             localStorage.setItem('token', res?.token)
-            localStorage.setItem('user', JSON.stringify(res))
             navigate(routes.dashboard.path)
         } catch (e) {
             console.log('Error')

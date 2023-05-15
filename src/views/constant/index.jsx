@@ -28,7 +28,7 @@ const Constant = ({id, title}) => {
             delete data.file
             const formData = new FormData()
             Object.keys(data).forEach(item => {
-                formData.append(item, data[item] || '')
+                formData.append(item, data[item] || '-')
             })
 
             formData.append('file', file)

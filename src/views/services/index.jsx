@@ -21,12 +21,12 @@ const Blogs = () => {
                 ...item,
                 imageUrl: <img width="100px" height="100px" src={`${process.env.REACT_APP_FILE_URL}${item?.imageUrl}`}
                     alt="Image"/>,
-                descriptionAZ: item?.descriptionAZ.substring(0, 20),
-                descriptionRU: item?.descriptionRU.substring(0, 20),
-                descriptionEN: item?.descriptionEN.substring(0, 20),
-                titleAZ: item?.titleAZ.substring(0, 20),
-                titleRU: item?.titleRU.substring(0, 20),
-                titleEN: item?.titleEN.substring(0, 20),
+                descriptionAZ: item?.descriptionAZ?.substring(0, 20),
+                descriptionRU: item?.descriptionRU?.substring(0, 20),
+                descriptionEN: item?.descriptionEN?.substring(0, 20),
+                titleAZ: item?.titleAZ?.substring(0, 20),
+                titleRU: item?.titleRU?.substring(0, 20),
+                titleEN: item?.titleEN?.substring(0, 20),
                 createDate: moment(item?.createDate).format('DD/MM/YYYY'),
                 buttons: <div className="flex gap-1">
                     <Button className="p-button-danger" onClick={() => deleteItem(item?.id)}>

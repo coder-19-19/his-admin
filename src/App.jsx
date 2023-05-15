@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import {routeArr} from './routes'
 import MainLayout from './components/layouts/mainLayout'
 import '../node_modules/primeflex/primeflex.scss'
@@ -14,6 +14,7 @@ const App = () => {
             <ToastContainer autoClose="500"/>
             <BrowserRouter>
                 <Routes>
+                    <Route path="/" exact element={<Navigate to="/login" replace={true}/>}/>
                     {routeArr.map((item, index) => (
                         <Route index exact path={item.path} key={index} element={
                             <MainLayout item={item}/>

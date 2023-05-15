@@ -20,12 +20,12 @@ const routeItem = (title, path, component, icon, roles, isSite = false, show = t
 }
 
 const routes = {
-    dashboard: routeItem('ThreeSteps', '/', <Dashboard/>, <i className="pi pi-user"/>, null, false, false),
+    dashboard: routeItem('ThreeSteps', '/dashboard', <Dashboard/>, <i className="pi pi-user"/>, null, false, false),
     users: routeItem('İstifadəçilər', '/users', <Users/>, <i className="pi pi-users"/>),
-    blogs: routeItem('Xəbərlər', '/news', <Blogs/>, <i className="pi pi-list"/>),
+    'news': routeItem('Xəbərlər', '/news', <Blogs/>, <i className="pi pi-list"/>),
     services: routeItem('Xidmətlər', '/services', <Services/>, <i className="pi pi-list"/>),
-    projects: routeItem('Layihələr', '/projects', <Projects/>, <i className="pi pi-list"/>),
-    aboutUs: routeItem('Haqqımızda', '/about-us', <Constants id="about-us" title="Haqqımızda"/>, <i
+    'selected-projects': routeItem('Layihələr', '/selected-projects', <Projects/>, <i className="pi pi-list"/>),
+    'about-us': routeItem('Haqqımızda', '/about-us', <Constants id="about-us" title="Haqqımızda"/>, <i
         className="pi pi-info-circle"/>),
     career: routeItem('Karyera', '/career', <Constants id="career" title="Karyera"/>, <i
         className="pi pi-database"/>),

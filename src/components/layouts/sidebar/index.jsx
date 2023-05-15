@@ -7,13 +7,17 @@ import Logo from '../../../assets/images/favicon.png'
 
 const CustomSidebar = () => {
     const [actvie, setActive] = useState(true)
-    const user = JSON.parse(localStorage.getItem('user'))
     const navigate = useNavigate()
 
     const logout = async() => {
         localStorage.clear()
         navigate('/login')
     }
+
+    let permissions
+    permissions = localStorage.getItem('permissions') || []
+    permissions = permissions?.length ? JSON.parse(permissions) : []
+    permissions = permissions?.map(item => item?.id)
 
     return (
         <div className={classNames({
@@ -34,9 +38,9 @@ const CustomSidebar = () => {
             </Link>
             <nav>
                 <ul className="menu">
-                    {routeArr.filter(item => !item?.isSite).map(item => (
-                        Array.isArray(item.roles) && !item.roles.includes(user?.role) || item.path.includes('/:id') ? null : (
-                            item?.show && (
+                    {routeArr.filter(item => item?.show)?.map(item => (
+                        (permissions.includes(item?.path.replace('/', '')) || item.path === routes.dashboard.path) && (
+                            item.path.includes('/:id') ? null : (
                                 <li key={item.path}>
                                     <NavLink to={item.path}>
                                         {item.icon}
@@ -44,18 +48,6 @@ const CustomSidebar = () => {
                                     </NavLink>
                                 </li>
                             )
-                        )
-                    ))}
-                </ul>
-                <ul className="menu">
-                    {routeArr.filter(item => item?.isSite).map(item => (
-                        Array.isArray(item.roles) && !item.roles.includes(user?.role) || item.path.includes('/:id') ? null : (
-                            <li key={item.path}>
-                                <NavLink to={item.path}>
-                                    {item.icon}
-                                    <span>{item.title}</span>
-                                </NavLink>
-                            </li>
                         )
                     ))}
                 </ul>

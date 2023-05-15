@@ -3,6 +3,7 @@ import {useState} from 'react'
 import Auth from '../../api/auth'
 import {InputText} from 'primereact/inputtext'
 import {Button} from 'primereact/button'
+import classNames from 'classnames'
 
 const UpdateForm = ({form, setForm, fetchData}) => {
     const [loader, setLoader] = useState(false)
@@ -14,7 +15,7 @@ const UpdateForm = ({form, setForm, fetchData}) => {
         try {
             await Auth.userUpdate({
                 ...data,
-                id: form?.id
+                userId: form?.id
             })
             fetchData()
             setForm(null)

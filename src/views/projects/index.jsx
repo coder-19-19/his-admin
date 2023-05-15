@@ -21,12 +21,12 @@ const Blogs = () => {
                 ...item,
                 mainImageUrl: <img width="100px" height="100px" src={`${process.env.REACT_APP_FILE_URL}${item?.mainImageUrl}`}
                     alt="Image"/>,
-                descriptionAZ: item?.descriptionAZ.substring(0, 20),
-                descriptionRU: item?.descriptionRU.substring(0, 20),
-                descriptionEN: item?.descriptionEN.substring(0, 20),
-                titleAZ: item?.titleAZ.substring(0, 20),
-                titleRU: item?.titleRU.substring(0, 20),
-                titleEN: item?.titleEN.substring(0, 20),
+                descriptionAZ: item?.descriptionAZ?.substring(0, 20),
+                descriptionRU: item?.descriptionRU?.substring(0, 20),
+                descriptionEN: item?.descriptionEN?.substring(0, 20),
+                nameAZ: item?.nameAZ?.substring(0, 20),
+                nameRU: item?.nameRU?.substring(0, 20),
+                nameEN: item?.nameEN?.substring(0, 20),
                 createDate: moment(item?.createDate).format('DD/MM/YYYY'),
                 buttons: <div className="flex gap-1">
                     <Button className="p-button-danger" onClick={() => deleteItem(item?.id)}>
@@ -47,9 +47,9 @@ const Blogs = () => {
     }
 
     const names = {
-        titleAZ: 'Başlıq (az)',
-        titleEN: 'Başlıq (en)',
-        titleRU: 'Başlıq (ru)',
+        nameAZ: 'Başlıq (az)',
+        nameEN: 'Başlıq (en)',
+        nameRU: 'Başlıq (ru)',
         descriptionAZ: 'Açıqlama (az)',
         descriptionEN: 'Açıqlama (en)',
         descriptionRU: 'Açıqlama (ru)',
@@ -83,9 +83,9 @@ const Blogs = () => {
                     </Dialog>
                     <DataTable paginator rows={10} rowsPerPageOptions={[10, 20, 30]} emptyMessage="Məlumat yoxdur"
                         className="mt-5" value={data} responsiveLayout="scroll">
-                        <Column field="titleAZ" header={names.titleAZ} sortable/>
-                        <Column field="titleEN" header={names.titleEN} sortable/>
-                        <Column field="titleRU" header={names.titleRU} sortable/>
+                        <Column field="nameAZ" header={names.nameAZ} sortable/>
+                        <Column field="nameEN" header={names.nameEN} sortable/>
+                        <Column field="nameRU" header={names.nameRU} sortable/>
                         <Column field="descriptionAZ" header={names.descriptionAZ} sortable/>
                         <Column field="descriptionEN" header={names.descriptionEN} sortable/>
                         <Column field="descriptionRU" header={names.descriptionRU} sortable/>

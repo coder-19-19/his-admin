@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react'
 import Constants from '../../api/constants'
 import {InputText} from 'primereact/inputtext'
 import {InputTextarea} from 'primereact/inputtextarea'
+import {Dropdown} from 'primereact/dropdown'
 import {Button} from 'primereact/button'
 
 const Form = ({form, setForm, fetchData}) => {
@@ -19,7 +20,7 @@ const Form = ({form, setForm, fetchData}) => {
             formData.append(item, data[item])
         })
 
-        formData.append('imageUrl', file)
+        formData.append('mainImage', file)
 
         setLoader(true)
         try {
@@ -32,6 +33,21 @@ const Form = ({form, setForm, fetchData}) => {
         setLoader(true)
     }
 
+    const types = [
+        {
+            label: 'Featured',
+            value: 'FEATURED'
+        },
+        {
+            label: 'Completed',
+            value: 'COMPLETED'
+        },
+        {
+            label: 'Ongoing',
+            value: 'ONGOING'
+        }
+    ]
+
     useEffect(() => {
         if (form?.id) {
             reset(form)
@@ -43,27 +59,27 @@ const Form = ({form, setForm, fetchData}) => {
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="titleAZ">Başlıq (az)</label>
-                    <InputText className="w-full" name="titleAZ" id="titleAZ" value={value}
+                        htmlFor="nameAZ">Başlıq (az)</label>
+                    <InputText className="w-full" name="nameAZ" id="nameAZ" value={value}
                         onChange={onChange}/>
                 </div>
-            )} name="titleAZ"/>
+            )} name="nameAZ"/>
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="titleEN">Başlıq (en)</label>
-                    <InputText className="w-full" name="titleEN" id="titleEN" value={value}
+                        htmlFor="nameEN">Başlıq (en)</label>
+                    <InputText className="w-full" name="nameEN" id="nameEN" value={value}
                         onChange={onChange}/>
                 </div>
-            )} name="titleEN"/>
+            )} name="nameEN"/>
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
-                        htmlFor="titleRU">Başlıq (ru)</label>
-                    <InputText className="w-full" name="titleRU" id="titleRU" value={value}
+                        htmlFor="nameRU">Başlıq (ru)</label>
+                    <InputText className="w-full" name="nameRU" id="nameRU" value={value}
                         onChange={onChange}/>
                 </div>
-            )} name="titleRU"/>
+            )} name="nameRU"/>
             <Controller control={control} render={({field: {value, onChange}}) => (
                 <div className="col-12">
                     <label
@@ -88,6 +104,19 @@ const Form = ({form, setForm, fetchData}) => {
                         onChange={onChange}/>
                 </div>
             )} name="descriptionRU"/>
+            <Controller control={control} render={({field: {value, onChange}}) => (
+                <div className="col-12">
+                    <label
+                        htmlFor="type">Tip</label>
+                    <Dropdown
+                        value={value}
+                        onChange={onChange}
+                        options={types}
+                        id="type"
+                        name="type"
+                        className="w-full"/>
+                </div>
+            )} name="type"/>
             <div className="col-12">
                 <label
                     className="p-button p-button-secondary"
